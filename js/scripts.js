@@ -20,27 +20,6 @@ const map = new mapboxgl.Map({
 
 map.on('load', function () {
 
-  // REMOVE BIKE POINTS FOR NOW
-  // CITIBIKE
-  // add bike trips geojson
-  /* map.addSource('trips220505source', {
-    type: 'geojson',
-    data: trips230306230312
-  })
-
-  // add bike trip points
-  map.addLayer({
-    id: 'circle-trips',
-    type: 'circle',
-    source: 'trips220505source',
-    paint: {
-      'circle-color': '#3887be',
-      'circle-radius': 3.5,
-      'circle-opacity': 0.6
-    }
-  })
- */
-
   // NYCT SUBWAY
   // add subway routes geojson
   map.addSource('subwayroutessource', {
@@ -60,7 +39,7 @@ map.on('load', function () {
     paint: {
       'line-color': '#005ea1',
       //'line-color': ['get', 'color'],
-      'line-width': 1.25,
+      'line-width': 2,
       'line-opacity': 0.75
     }
   })
@@ -82,39 +61,17 @@ map.on('load', function () {
       'line-cap': 'round'
     },
     paint: {
-      'line-color': '#abd2ed',
+      'line-color': '#85c2ed',
       'line-dasharray': [2, 2],
       //'line-color': ['get', 'color'],
-      'line-width': 1.25,
+      'line-width': 1.5,
       'line-opacity': 0.75
     }
-  })
+  }, 'line-subway')
+
+
 
   // ADD GEOFENCE BOUNDARIES
-
-
-
-
-  // PREVIOUS VERSION - DISPLAY ONE TRIP UPON CLICK
-  // on click, display optimal cycling trip route
-  /* map.on('click', 'circle-trips', (e) => {
-
-    const start_lon = e.features[0].properties.start_lon;
-    const start_lat = e.features[0].properties.start_lat;
-    const end_lon = e.features[0].properties.end_lon;
-    const end_lat = e.features[0].properties.end_lat;
-
-    const user_type = e.features[0].properties.user_type;
-    const start_time = e.features[0].properties.start_time;
-    const end_time = e.features[0].properties.end_time;
-    const start_station = e.features[0].properties.start_station;
-    const end_station = e.features[0].properties.end_station;
-
-    getRoute(start_lon, start_lat, end_lon, end_lat, user_type, start_time, end_time, start_station, end_station);
-
-    console.log(map.getStyle().layers);
-
-  }); */
 
 
   // day entered, default to Mon, 3/6/2023
@@ -122,16 +79,6 @@ map.on('load', function () {
 
   // start time, default to 9:30am
   const start_hour = 9; 
-  const start_min = 30; 
-
-  /* const end_hour = 0; // placeholder
-  const end_min = if (start_min <= 30) {
-    end_min = start_min + 30;
-    end_hour = start_hour;
-  } else {
-    end_min = 60 - start_min - 30;
-    end_hour = start_hour + 1;
-  } */
 
   // API call and trip counter
   var apicalls = 0;
@@ -140,25 +87,16 @@ map.on('load', function () {
 
   // ISSUE: API CAN ONLY BE CALLED 300 TIMES PER MINUTE > DO ONE AREA AT A TIME?
   // display all trip routes where trip was on entered date and >= 10 min long
+  // display only trips during start hour
   trips.forEach(function (trip) {
-    if (trip.start_time.slice(0, 10) === day && moment(trip.end_time).diff(moment(trip.start_time), "minutes") >= 10 && moment(trip.end_time).hour() === start_hour && moment(trip.end_time).minute() >= (start_min + 30)) {
-
-      console.log(start_hour);
-      console.log(start_min);
-
+    if (trip.start_time.slice(0, 10) === day && moment(trip.end_time).diff(moment(trip.start_time), "minutes") >= 10 && moment(trip.start_time).hour() === start_hour) {
       numtrips +=1; // trip counter
-     
-      if (apicalls <= 300) {
-        
-        apicalls += 1; // API call counter
-        
-        //getRoute(trip.id, trip.start_lon, trip.start_lat, trip.end_lon, trip.end_lat, trip.user_type, trip.start_time, trip.end_time, trip.start_station, trip.end_station);
-      
+      if (apicalls <= 300) { 
+        apicalls += 1; // API call counter   
+        getRoute(trip.id, trip.start_lon, trip.start_lat, trip.end_lon, trip.end_lat, trip.user_type, trip.start_time, trip.end_time, trip.start_station, trip.end_station);
       }
-
       console.log(apicalls);
       console.log(numtrips);      
-
     }
   })
 
@@ -210,41 +148,11 @@ map.on('load', function () {
         'line-cap': 'round'
       },
       'paint': {
-        'line-color': '#00cf37',
-        'line-width': 1.25,
-        'line-opacity': 0.75
+        'line-color': '#fa1400',
+        'line-width': 2,
+        'line-opacity': 0.25
       }
     });
-
-    /* // if the route already exists on the map, we'll reset it using setData
-    if (map.getSource('route')) {
-      map.getSource('route').setData(geojson);
-    }
-
-    // otherwise, we'll make a new request
-    else {
-
-      // add layer for route
-      map.addLayer({
-        'id': 'route',
-        'type': 'line',
-        'source': {
-          'type': 'geojson',
-          'data': geojson
-        },
-        'layout': {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        'paint': {
-          'line-color': '#00cf37',
-          'line-width': 5,
-          'line-opacity': 0.75
-        }
-      });
-
-    } */
-
 
   }
 
