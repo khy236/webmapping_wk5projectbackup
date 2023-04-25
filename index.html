@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Title</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <div class="sidebar">
+        <h1>What can CitiBike ebike data tell us about NYC's transit gaps?</h1>
+        <p>Citi Bike launched <a href='https://ride.citibikenyc.com/blog/new-york-meet-your-new-ebike' target="_blank" rel="noopener noreferrer">new Ebikes</a> on May 5, 2022 that make it easy for able-bodied New Yorkers to speed around town. In some cases, these riders may be choosing ebikes because they are preferable to their public transit options. Through this map, you can compare the routes ebikers took and current MTA subway and bus routes. <b>Can you spot routes that ebikes cover but the MTA does not?</b></p>
+        
+        <div class="description">
+            <p></p>
+            <p><b style="color: #00cf37;">Green lines</b> show the potential routes bikers took. Ebike trip data is from <a href='https://s3.amazonaws.com/tripdata/index.html' target="_blank" rel="noopener noreferrer">Citi Bike</a>.</p>
+            <p><b style="color: #005ea1;">Blue lines</b> show MTA subway and bus routes. Subway routes are solid and bus route are dashed. Routes are sourced from the <a href='https://www.baruch.cuny.edu/confluence/display/geoportal/NYC+Mass+Transit+Spatial+Layers' target="_blank" rel="noopener noreferrer">Baruch College Geoportal's NYC Mass Transit Spatial Layers</a>.</p>
+            <p> </p>
+        </div>
+    </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="data/230303citibike2.js"></script>
+    <script src="data/bus_routes.js"></script>
+    <script src="data/subway_routes.js"></script>
+    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="js/scripts.js"></script>
+
+
+</html>
