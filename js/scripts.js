@@ -95,8 +95,8 @@ map.on('load', function () {
         apicalls += 1; // API call counter   
         getRoute(trip.id, trip.start_lon, trip.start_lat, trip.end_lon, trip.end_lat, trip.user_type, trip.start_time, trip.end_time, trip.start_station, trip.end_station);
       }
-      console.log(apicalls);
-      console.log(numtrips);      
+      //console.log(apicalls);
+      //console.log(numtrips);      
     }
   })
 
