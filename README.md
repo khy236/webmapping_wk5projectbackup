@@ -4,4 +4,4 @@ Citi Bike launched [new Ebikes](https://ride.citibikenyc.com/blog/new-york-meet-
 
 Red lines show the potential routes ebikers took. These lines are transparent, so the thicker the line, the more popular the route. Ebike trip data is from [Citi Bike](https://s3.amazonaws.com/tripdata/index.html). Routes are estimated using MapBox's [Directions API](https://docs.mapbox.com/api/navigation/directions/).
 
-Blue lines show MTA subway and bus routes. Subway routes are solid and bus route are dashed. Routes are sourced from the Baruch College Geoportal's NYC Mass Transit Spatial Layers](https://www.baruch.cuny.edu/confluence/display/geoportal/NYC+Mass+Transit+Spatial+Layers').
+Blue lines show MTA subway and bus routes. Subway routes are solid and bus route are dashed. Routes are sourced from the Baruch College Geoportal's NYC Mass Transit Spatial Layers](https://www.baruch.cuny.edu/confluence/display/geoportal/NYC+Mass+Transit+Spatial+Layers).
